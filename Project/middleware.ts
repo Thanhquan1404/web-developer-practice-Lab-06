@@ -6,7 +6,7 @@ const rateLimit = new Map<string, { count: number; resetTime: number }>();
 
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/api/ask')) {
-    const ip = request.ip || 'unknown';
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
     const now = Date.now();
     const windowMs = parseInt(process.env.RATE_LIMIT_WINDOW || '60000'); // 1 minute
     const maxRequests = parseInt(process.env.RATE_LIMIT_MAX || '10');

@@ -2,7 +2,6 @@
 
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
-import pool from '@/lib/db';
 
 export async function askAI(question: string) {
   // Mock vector search
@@ -13,5 +12,5 @@ export async function askAI(question: string) {
     prompt: `Context: ${mockContext}\nQuestion: ${question}\nAnswer:`,
   });
 
-  return result.toDataStreamResponse();
+  return result.toTextStreamResponse();
 }
